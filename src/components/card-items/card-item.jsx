@@ -9,6 +9,7 @@ export const CardList = ({title, imgUrl, size}, index) => {
           <span className="card_subtitle">SHOP NOW</span>
         </div>
       </div>
+      <div></div>
     </div>
   );
 };
