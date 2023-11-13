@@ -1,11 +1,10 @@
 import './home.style.scss';
-
-import CardData from '../../components/card-data/cardData';
+import DirectoryList from '../../components/directory-list/directoryList';
 
 export const HomePage = () => {
   return (
     <div className="homepage">
-      <CardData />
+      <DirectoryList />
     </div>
   );
 };
