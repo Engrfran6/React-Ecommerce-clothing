@@ -1,0 +1,31 @@
+.collection_preview-container{
+  width: 100%;
+  height: max-content;
+
+  .collection_preview-link{
+    list-style: none;
+    text-decoration: none;
+  }
+
+  .collection_preview-title{
+    width: max-content;
+    font-size: 1.7rem;
+  }
+
+  .collection_preview-items{
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 2rem ;
+  }
+
+  .collection_container-view-more{
+   float: inline-end;
+    background-color: green;
+    color: white;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    padding: 0.7rem 1.4rem;
+    border-style: none;
+    border-top-right-radius: 1.5rem;
+  }
+}

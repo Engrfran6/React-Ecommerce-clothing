@@ -9,7 +9,12 @@ export default class DirectoryList extends Component {
 
     this.state = {
       datas: [
-        {id: 1, title: 'hats', imgUrl: img},
+        {
+          id: 1,
+          title: 'hats',
+          imgUrl: img,
+          collections: [{name: 'brown brim', price: '25', imgUrl: img}],
+        },
         {id: 2, title: 'jackets', imgUrl: img},
         {id: 3, title: 'sneakers', imgUrl: img},
         {id: 4, title: 'womens', imgUrl: img, size: 'large'},

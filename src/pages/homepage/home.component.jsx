@@ -1,5 +1,5 @@
 import './home.style.scss';
-import DirectoryList from '../../components/directory-list/directoryList';
+import DirectoryList from '../../components/directory-list/directory-list';
 
 export const HomePage = () => {
   return (
