@@ -16,6 +16,13 @@
     display: grid;
     grid-template-columns: repeat(4, auto);
     gap: 2rem ;
+
+
+    @media screen and (max-width: 600px) {
+        & {
+       grid-template-columns: repeat(2, auto);
+        }
+      }
   }
 
   .collection_container-view-more{
@@ -28,4 +35,8 @@
     border-style: none;
     border-top-right-radius: 1.5rem;
   }
+
+
+
+
 }

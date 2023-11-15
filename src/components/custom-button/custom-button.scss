@@ -1,0 +1,39 @@
+  .custom_btn{
+    width: max-content;
+    min-width: 165px;
+    height: 50px;
+    letter-spacing: .5px;
+    line-height: 50px;
+    padding: 0 25px;
+    border: none;
+    font-size: 15px;
+    color: white;
+    background-color: black;
+    text-transform: uppercase;
+    font-family: 'Open Sans Condensed';
+    cursor: pointer;
+
+
+
+    &:hover{
+      color: black;
+      background-color: white;
+      border: 1px solid black;
+     }
+
+     &.custom_btn-google {
+        color: white;
+        background-color: #ea4335;
+        font-size: 11px;
+
+        
+       &:hover {
+         color: black;
+         background-color: white;
+         border: 1px solid black;
+       }
+
+      }
+  }
+
+
