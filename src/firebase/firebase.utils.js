@@ -1,6 +1,6 @@
 import {initializeApp} from 'firebase/app';
 import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
-import {getFirestore} from 'firebase/firestore';
+import {getFirestore, collection, doc, addDoc, getDoc, getDocs, setDoc} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBVdHelyOezgX70-687s1iwEkgUZgR77AE',
@@ -14,15 +14,71 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const firestore = getFirestore(app);
+const database = getFirestore(app);
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({prompt: 'select_account'});
 
 const signInWithGoogle = async () => {
-  return signInWithPopup(auth, provider).then(() => {
-    window.location.href = '/';
-  });
+  // return await signInWithPopup(auth, provider).then(() => {
+  //   window.location.href = '/';
+  // });
+
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+    })
+    .then(() => {
+      window.location.href = '/';
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
 };
 
-export {auth, firestore, signInWithGoogle};
+const createUserFromProfileDocument = async (authUser, additionalData) => {
+  if (!authUser) return;
+
+  const authUserUid = authUser.uid;
+
+  const docRef = doc(database, 'users', authUserUid);
+  const docSnap = await getDoc(docRef);
+
+  if (!docSnap.exists()) {
+    const {displayName, email} = authUser;
+    const createdAt = new Date();
+
+    try {
+      await setDoc(docRef, {
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      });
+
+      console.log(
+        'Document with ID:',
+        authUserUid,
+        'has been saved successfully to the firestore database'
+      );
+    } catch (err) {
+      console.error('Error adding document: ', err);
+    }
+  }
+  return docRef;
+};
+
+export {auth, database, signInWithGoogle, createUserFromProfileDocument};
 export default app;

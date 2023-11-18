@@ -5,7 +5,9 @@ import {Routes, Route, Link} from 'react-router-dom';
 import Shop from './pages/shops/shops';
 import {Navbar} from './components/navbar/navbar';
 import {SignInAndSignUp} from './pages/signIn-signUp/signIn-signUp';
-import {auth} from './firebase/firebase.utils';
+import {auth, createUserFromProfileDocument} from './firebase/firebase.utils';
+import {onAuthStateChanged} from 'firebase/auth';
+import {onSnapshot} from 'firebase/firestore';
 
 export default class App extends Component {
   constructor() {
@@ -14,14 +16,23 @@ export default class App extends Component {
     this.state = {
       currentUser: null,
     };
+
+    this.state = {
+      message: '',
+    };
   }
 
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      this.setState({currentUser: user});
-      console.log('user=====', user);
+    this.unsubscribeFromAuth = onAuthStateChanged(auth, async (authUser) => {
+      if (authUser) {
+        const docRef = await createUserFromProfileDocument(authUser);
+
+        onSnapshot(docRef, (snap) => {
+          this.setState({currentUser: {id: snap.id, ...snap.data()}});
+        });
+      } else this.setState({currentUser: this.state.currentUser || null});
     });
   }
 
@@ -34,7 +45,11 @@ export default class App extends Component {
       <>
         <Navbar currentUser={this.state.currentUser} />
         <Routes>
-          <Route exact path="/" element={<HomePage />} />
+          <Route
+            exact
+            path="/"
+            element={<HomePage displayName={this.state.currentUser?.displayName} />}
+          />
           <Route path="/collection" element={<Shop />} />
           <Route path="/login-logout" element={<SignInAndSignUp />} />
         </Routes>

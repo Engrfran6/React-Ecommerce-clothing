@@ -1,12 +1,8 @@
 import './custom-button.scss';
 
-export const CustomButton = ({text, ...otherButtonProps}) => {
+export const CustomButton = ({text, isGoogle, ...otherButtonProps}) => {
   return (
-    <button
-      className={`custom_btn ${
-        otherButtonProps.otherSignUpMethod === 'google' ? 'custom_btn-google' : ''
-      }`}
-      {...otherButtonProps}>
+    <button className={`custom_btn ${isGoogle ? 'custom_btn-google' : ''}`} {...otherButtonProps}>
       {text}
     </button>
   );

@@ -11,6 +11,11 @@ export const Navbar = ({currentUser}) => {
         <div className="header_right">
           <ul className="header_list">
             <li className="header_listitems">
+              <Link className="header_link" to="/">
+                HOME
+              </Link>
+            </li>
+            <li className="header_listitems">
               <Link className="header_link" to="/collection">
                 SHOP
               </Link>
@@ -25,9 +30,15 @@ export const Navbar = ({currentUser}) => {
               <li
                 className="header_listitems"
                 style={{display: 'flex', alignItems: 'center', gap: '.7rem'}}>
-                <Link className="header_link" to="/" onClick={() => auth.signOut()}>
+                <div
+                  className="header_link"
+                  onClick={() =>
+                    auth.signOut().then(() => {
+                      window.location.href = '/';
+                    })
+                  }>
                   SIGN OUT
-                </Link>
+                </div>
                 <img
                   src={profilePics}
                   alt="profile photo"

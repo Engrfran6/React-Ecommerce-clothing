@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {FormInput} from '../form-input/form-input';
 import {CustomButton} from '../custom-button/custom-button';
 import './sign-in.scss';
-import {signInWithGoogle} from '../../firebase/firebase.utils';
+import {auth, signInWithGoogle} from '../../firebase/firebase.utils';
+import {signInWithEmailAndPassword} from 'firebase/auth';
 
 export default class SignIn extends Component {
   constructor() {
@@ -21,10 +22,19 @@ export default class SignIn extends Component {
     }));
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
+    const {email, password} = this.state.formValue;
 
-    console.log('Form submitted:', this.state.formValue);
+    try {
+      await signInWithEmailAndPassword(auth, email, password).then(() => {
+        this.setState({formValue: {email: '', password: ''}});
+
+        window.location.href = '/';
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   render() {
@@ -56,7 +66,7 @@ export default class SignIn extends Component {
             <CustomButton
               type="button"
               text="Login With Google"
-              otherSignUpMethod="google"
+              isGoogle
               onClick={signInWithGoogle}
             />
           </div>
