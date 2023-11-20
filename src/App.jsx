@@ -1,59 +1,46 @@
-import {Component} from 'react';
+import {useEffect} from 'react';
 import './App.css';
 import {HomePage} from './pages/homepage/home.component';
-import {Routes, Route, Link} from 'react-router-dom';
+import {Routes, Route, Link, useNavigate} from 'react-router-dom';
 import Shop from './pages/shops/shops';
 import {Navbar} from './components/navbar/navbar';
 import {SignInAndSignUp} from './pages/signIn-signUp/signIn-signUp';
 import {auth, createUserFromProfileDocument} from './firebase/firebase.utils';
 import {onAuthStateChanged} from 'firebase/auth';
 import {onSnapshot} from 'firebase/firestore';
+import {useDispatch, useSelector} from 'react-redux';
+import {addUser, selectUser} from './redux/features/user/userSlice';
 
-export default class App extends Component {
-  constructor() {
-    super();
+export const App = () => {
+  const dispatch = useDispatch();
 
-    this.state = {
-      currentUser: null,
-    };
-
-    this.state = {
-      message: '',
-    };
-  }
-
-  unsubscribeFromAuth = null;
-
-  componentDidMount() {
-    this.unsubscribeFromAuth = onAuthStateChanged(auth, async (authUser) => {
+  useEffect(() => {
+    const unsubscribeFromAuth = onAuthStateChanged(auth, async (authUser) => {
       if (authUser) {
         const docRef = await createUserFromProfileDocument(authUser);
 
         onSnapshot(docRef, (snap) => {
-          this.setState({currentUser: {id: snap.id, ...snap.data()}});
+          const {displayName, email, createdAt} = snap.data();
+          const time = createdAt.seconds;
+
+          dispatch(addUser({id: snap.id, displayName, email, time}));
         });
-      } else this.setState({currentUser: this.state.currentUser || null});
+      }
     });
-  }
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+    return () => {
+      unsubscribeFromAuth();
+    };
+  }, [dispatch]);
 
-  render() {
-    return (
-      <>
-        <Navbar currentUser={this.state.currentUser} />
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={<HomePage displayName={this.state.currentUser?.displayName} />}
-          />
-          <Route path="/collection" element={<Shop />} />
-          <Route path="/login-logout" element={<SignInAndSignUp />} />
-        </Routes>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route exact path="/" element={<HomePage />} />
+        <Route path="/collection" element={<Shop />} />
+        <Route path="/login-logout" element={<SignInAndSignUp />} />
+      </Routes>
+    </>
+  );
+};

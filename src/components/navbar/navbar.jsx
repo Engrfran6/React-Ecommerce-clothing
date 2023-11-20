@@ -2,12 +2,19 @@ import {Link} from 'react-router-dom';
 import './navbar.scss';
 import {auth} from '../../firebase/firebase.utils';
 import profilePics from '../../assets/babe.jpeg';
+import LOGO from '../../assets/logo.svg';
+import {useSelector} from 'react-redux';
+import {CartIcon} from '../cart-icon/cart-icon';
+import {Cart} from '../cart/cart';
 
-export const Navbar = ({currentUser}) => {
+export const Navbar = () => {
+  const currentUser = useSelector((state) => state.user);
+  const cartHidden = useSelector((state) => state.cart.cartHidden);
+
   return (
     <header className="header">
       <nav className="header_container">
-        <img src={''} alt="logo" />
+        <img src={LOGO} alt="logo" />
         <div className="header_right">
           <ul className="header_list">
             <li className="header_listitems">
@@ -25,13 +32,14 @@ export const Navbar = ({currentUser}) => {
                 CONTACT
               </Link>
             </li>
-
+          </ul>
+          <div>
             {currentUser ? (
-              <li
-                className="header_listitems"
+              <div
+                className="header_listitems-right"
                 style={{display: 'flex', alignItems: 'center', gap: '.7rem'}}>
                 <div
-                  className="header_link"
+                  className="header_link-right"
                   onClick={() =>
                     auth.signOut().then(() => {
                       window.location.href = '/';
@@ -41,21 +49,22 @@ export const Navbar = ({currentUser}) => {
                 </div>
                 <img
                   src={profilePics}
+                  width={40}
+                  height={40}
                   alt="profile photo"
-                  style={{width: '3rem', height: '3rem', borderRadius: '50%'}}
+                  style={{borderRadius: '50%'}}
                 />
-              </li>
+              </div>
             ) : (
-              <li className="header_listitems">
-                <Link className="header_link" to="/login-logout">
+              <div className="header_listitems-right">
+                <Link className="header_link-right" to="/login-logout">
                   SIGN IN
                 </Link>
-              </li>
+              </div>
             )}
-          </ul>
-
-          <p>Cart Icon</p>
-
+          </div>
+          <CartIcon />
+          {cartHidden ? null : <Cart />}
           <div className="humburger_menu">
             <div className="humburger_line" />
             <div className="humburger_line" />

@@ -1,0 +1,16 @@
+.cart_icon{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left:.5rem ;
+  cursor: pointer;
+
+
+
+
+  .cart_count{
+    position: absolute;
+    top: 10px;
+  }
+}

@@ -12,8 +12,8 @@ export default function CollectionPreview({title, items}) {
       </h1>
 
       <div className="collection_preview-items">
-        {items.slice(0, 4).map(({id, ...otherItemsProps}) => (
-          <CollectionCard key={id} {...otherItemsProps} />
+        {items.slice(0, 4).map((item) => (
+          <CollectionCard key={item.id} item={item} />
         ))}
       </div>
       <Link to={`/collection/${title}`} className="collection_preview-link">
