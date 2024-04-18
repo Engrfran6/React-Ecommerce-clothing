@@ -1,29 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
-:root{
+:root {
   margin: 0;
   padding: 0;
-  
 }
 
 body {
-  padding-top: 7rem ;
-  margin: 1rem 7rem;
+  padding: 7rem 15rem 2rem;
   font-family: Open sans, sans serif;
 
-
-  @media screen and (max-width: 600px) {
-      & {
-        margin: .9rem 1.5rem;
-      }
+  @media screen and (max-width: 1200px) {
+    & {
+      margin: 7rem 1.1rem;
+      padding: 2rem 4rem 1rem;
     }
+  }
+  @media screen and (max-width: 600px) {
+    & {
+      margin: 4rem 0rem;
+      padding: 2rem 2.5rem 1rem;
+    }
+  }
 }
 
-
-a{
+a {
   text-decoration: none;
 }
 
-*{
-box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }

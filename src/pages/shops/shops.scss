@@ -1,21 +1,16 @@
-.shop_container{
+.shop_container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
 
-
-  .shop_title{
-    font-size: 3rem;
-    color: purple;
+  .shop_title {
+    font-size: 2rem;
     font-weight: bold;
     font-style: italic;
-  }
 
-
-  .shop-items{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    @media screen and (max-width: 600px) {
+      font-size: 1.7rem;
+      text-align: center;
+    }
   }
 }

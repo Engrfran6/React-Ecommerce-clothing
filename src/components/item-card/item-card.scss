@@ -1,0 +1,107 @@
+.item_container {
+  position: relative;
+  height: 20rem;
+
+  .item_content {
+    width: 100%;
+    height: 100%;
+
+    .item_img {
+      height: 70%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    > span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: max-content;
+      font-weight: bolder;
+      font-size: 0.7rem;
+      padding: 0.5rem 1.1rem;
+      background: white;
+      opacity: 0.9;
+      display: none;
+      transform: translate(-50%, -50%);
+
+      @media screen and (max-width: 600px) {
+        top: 80%;
+        right: 0;
+        width: max-content;
+        font-size: 0.5rem;
+        border-radius: 0.35rem;
+        padding: 0.3rem 0.5rem;
+        display: block;
+      }
+
+      > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+
+        > span {
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+          justify-content: end;
+
+          &:hover {
+            text-decoration: underline;
+            box-shadow: 1px 3px 5px 2px;
+          }
+        }
+      }
+    }
+
+    &:hover,
+    &:active {
+      opacity: 0.8;
+
+      > span {
+        display: block;
+        transition: background-position 0.5s ease;
+        cursor: pointer;
+      }
+    }
+    .item_footer-container {
+      height: 30%;
+      border: 1px solid rgb(236, 234, 234);
+      border-bottom-right-radius: 1rem;
+      padding: 1rem 0.5rem;
+
+      .item_footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        color: rgb(18, 18, 18);
+        font-weight: 600;
+
+        > span:first-child {
+          // width: 80%;
+        }
+        > span:last-child {
+          // width: 20%;
+          // text-align: end;
+        }
+
+        @media screen and (max-width: 600px) {
+          font-size: 11px;
+        }
+      }
+
+      > span {
+        font-style: italic;
+        font-size: 0.8rem;
+        color: gray;
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .item_content {
+      height: 14rem;
+    }
+  }
+}

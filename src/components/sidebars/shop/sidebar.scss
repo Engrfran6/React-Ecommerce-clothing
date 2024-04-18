@@ -1,0 +1,33 @@
+.sidebar_container {
+  width: 12%;
+
+  .sidebar_title > span {
+    display: flex;
+    align-items: center;
+  }
+
+  .sidebar_content {
+    > div {
+      > div {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+
+        > h2 {
+          font-size: 1.1rem;
+        }
+      }
+
+      > ul {
+        text-decoration: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        > li {
+          padding: 0.4rem 0;
+        }
+      }
+    }
+  }
+}

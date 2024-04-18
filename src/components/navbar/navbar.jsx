@@ -6,15 +6,18 @@ import LOGO from '../../assets/logo.svg';
 import {useSelector} from 'react-redux';
 import {CartIcon} from '../cart-icon/cart-icon';
 import {Cart} from '../cart/cart';
+import {selectCartHidden, selectUser} from '../../redux/selectors/selector';
 
 export const Navbar = () => {
-  const currentUser = useSelector((state) => state.user);
-  const cartHidden = useSelector((state) => state.cart.cartHidden);
+  const currentUser = useSelector(selectUser);
+  const cartHidden = useSelector(selectCartHidden);
 
   return (
     <header className="header">
       <nav className="header_container">
-        <img src={LOGO} alt="logo" />
+        <Link to="/">
+          <img src={LOGO} alt="logo" />
+        </Link>
         <div className="header_right">
           <ul className="header_list">
             <li className="header_listitems">
@@ -23,7 +26,7 @@ export const Navbar = () => {
               </Link>
             </li>
             <li className="header_listitems">
-              <Link className="header_link" to="/collection">
+              <Link className="header_link" to="/collections">
                 SHOP
               </Link>
             </li>

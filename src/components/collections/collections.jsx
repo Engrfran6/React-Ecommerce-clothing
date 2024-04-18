@@ -1,24 +1,32 @@
-import {CollectionCard} from '../collection-card/collection-card';
 import './collections.scss';
-import {Link} from 'react-router-dom';
+import CollectionPreview from '../collection-preview/collection-preview';
+import {ItemCard} from '../item-card/item-card';
 
-export default function CollectionPreview({title, items}) {
-  return (
-    <div className="collection_preview-container">
-      <h1 className="collection_preview-title">
-        <Link to={`/collection/${title}`} className="collection_preview-link">
-          {title.toUpperCase()}
-        </Link>
-      </h1>
-
-      <div className="collection_preview-items">
-        {items.slice(0, 4).map((item) => (
-          <CollectionCard key={item.id} item={item} />
-        ))}
+export const Collections = ({isLoading, error, products}) => {
+  if (isLoading)
+    return (
+      <div className="collections_container">
+        <div className="loading_container">....Loading</div>
       </div>
-      <Link to={`/collection/${title}`} className="collection_preview-link">
-        <span className="collection_container-view-more">View More...</span>
-      </Link>
+    );
+
+  if (!products && error)
+    return (
+      <div className="no_collections-data">
+        <h2>No Preview Data Available, please check back later</h2>
+        <br />
+        <div style={{color: 'red'}}>Error: {error}</div>
+      </div>
+    );
+
+  return (
+    <div className="collections_container">
+      <div className="collections-items">
+        {products.map((item) => {
+          return <ItemCard key={item.id} item={item} />;
+        })}
+      </div>
+      )
     </div>
   );
-}
+};

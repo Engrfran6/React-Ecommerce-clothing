@@ -1,0 +1,78 @@
+.checkout_container {
+  width: 60%;
+  margin: 0 auto;
+
+  .checkout_header {
+    width: 100%;
+    display: flex;
+    padding: 1.2rem 0.3rem;
+    background-color: rgb(242, 237, 237);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
+    .checkout_header-block {
+      width: 23%;
+      font-size: 18px;
+      list-style-type: none;
+      text-align: center;
+
+      &:last-child {
+        width: 8%;
+      }
+
+      &:first-child {
+        text-align: start;
+      }
+    }
+  }
+
+  .checkout_empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10vh;
+    color: red;
+  }
+
+  .checkout_header-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .checkout_item-clear {
+      padding: 0.6rem 1.6rem;
+      background-color: white;
+      color: red;
+      border: 1px solid gray;
+      cursor: pointer;
+
+      &:hover {
+        color: white;
+        background-color: rgb(239, 52, 52);
+        border: none;
+      }
+    }
+
+    .checkout_item-price-all {
+      padding: 1.5rem 0;
+      font-size: 1.7rem;
+
+      &:first-child {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .checkout_stripe-payment {
+    padding-top: 2rem;
+    margin: 0 auto;
+    width: max-content;
+  }
+
+  .checkout_test-card {
+    margin: 2rem auto;
+    color: red;
+    border: 2px solid red;
+    padding: 1rem;
+  }
+}

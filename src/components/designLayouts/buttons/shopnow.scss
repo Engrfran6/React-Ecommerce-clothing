@@ -1,0 +1,15 @@
+.sale_btn {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #2d2c2c;
+  transition-duration: 300ms;
+  width: 185px;
+  height: 50px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #000000;
+  }
+}

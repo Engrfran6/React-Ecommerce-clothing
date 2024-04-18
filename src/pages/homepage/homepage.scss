@@ -1,0 +1,16 @@
+.homepage {
+  .greetings {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-style: italic;
+
+    > span {
+      color: rgb(79, 12, 79);
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
+}

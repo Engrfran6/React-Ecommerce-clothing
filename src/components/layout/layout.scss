@@ -1,0 +1,9 @@
+.content-wrapper {
+  position: relative;
+
+  > aside {
+    position: absolute;
+    right: -15rem;
+    top: 5rem;
+  }
+}

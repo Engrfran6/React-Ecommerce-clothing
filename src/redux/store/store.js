@@ -1,34 +1,27 @@
 import {configureStore} from '@reduxjs/toolkit';
-import userReducer from '../features/user/userSlice';
-import cartReducer from '../features/cart/cartSlice';
 import logger from 'redux-logger';
-import {persistReducer, persistStore} from 'redux-persist';
+import {persistStore} from 'redux-persist';
+import {persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import {auth, createUserFromProfileDocument} from '../../firebase/firebase.utils';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {rootReducer} from '../rootReducer/root';
 
-const middlewares = [logger];
+const middlewares = [];
 
-const userPersistConfig = {
-  key: 'cart',
+if (process.env.NODE_ENV == 'production') {
+  middlewares.push(logger);
+}
+
+const persistConfig = {
+  key: 'root',
   storage,
-};
-const cartPersistConfig = {
-  key: 'cart',
-  storage,
-  blacklist: [createUserFromProfileDocument, createUserWithEmailAndPassword, auth],
+  whitelist: ['cart', 'directory', 'shop'],
 };
 
-const cartPersistedReducer = persistReducer(cartPersistConfig, cartReducer);
-const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    user: persistedUserReducer,
-    cart: cartPersistedReducer,
-  },
-
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),
 });
 
-export const persistor = persistStore(store);
+export const persistore = persistStore(store);

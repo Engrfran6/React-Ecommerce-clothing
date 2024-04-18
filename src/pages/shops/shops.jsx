@@ -1,35 +1,28 @@
-import React, {Component} from 'react';
-import CollectionPreview from '../../components/collections/collections';
+import {useDispatch, useSelector} from 'react-redux';
+import {Collections} from '../../components/collections/collections';
 import './shops.scss';
-import {ShopData as SHOP_DATA} from './shop-data';
+import {selectShopData} from '../../redux/selectors/selector';
+import {useState, useEffect} from 'react';
 
-export default class Shop extends Component {
-  constructor() {
-    super();
+export const Shop = () => {
+  const {isLoading, error} = useSelector((state) => state.shop);
+  const shopData = useSelector(selectShopData);
 
-    this.state = {
-      collections: SHOP_DATA,
-    };
-  }
-  render() {
-    return (
-      <>
-        {SHOP_DATA ? (
-          <div className="shop_container">
-            <h1 className="shop_title"> Collections</h1>
+  const [products, setProducts] = useState([]);
 
-            <div className="shop-items">
-              {this.state.collections.map(({id, ...collection}) => (
-                <CollectionPreview key={id} {...collection} />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div style={{display: 'flex', justifyContent: 'center', marginTop: '10rem'}}>
-            <h2>No Preview Data Avalaible, please check back later</h2>
-          </div>
-        )}
-      </>
-    );
-  }
-}
+  useEffect(() => {
+    fetch('https://dummyjson.com/products')
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data.products);
+      });
+  }, []); // Empty dependency array ensures this effect runs only once, when component mounts
+
+  console.log('this products=========>', products);
+  return (
+    <div className="shop_container">
+      <h1 className="shop_title"> Collections</h1>
+      <Collections isLoading={isLoading} error={error} products={products} />
+    </div>
+  );
+};

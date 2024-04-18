@@ -1,0 +1,33 @@
+.collection_container {
+  width: 100%;
+  height: max-content;
+
+  .collection_title {
+    width: max-content;
+    font-size: 1.7rem;
+    margin: 40px auto;
+
+    @media screen and (max-width: 600px) {
+      font-size: 1rem;
+    }
+  }
+
+  .collection_items {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 2rem;
+
+    @media screen and (max-width: 600px) {
+      & {
+        grid-template-columns: repeat(2, auto);
+      }
+    }
+  }
+}
+
+.loading_container,
+.no-data_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+}
